@@ -25,9 +25,8 @@
 }
 
 .logo {
-  color: red;
   font-size: 20px;
-  text-transform: uppercase;
+  font-weight: bold;
 }
 
 .logo a {

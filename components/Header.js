@@ -6,7 +6,7 @@ export default function Header() {
     <header className={styles.header}>
       <div className={styles.logo}>
         <Link href='/'>
-          <a>Events</a>
+          <a>Nihon</a>
         </Link>
       </div>
 
