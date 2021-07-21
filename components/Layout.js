@@ -26,7 +26,7 @@ export default function Layout({ title, keywords, description, children }) {
 }
 
 Layout.defaultProps = {
-  title: 'Nihon | Find the latest events',
-  description: 'Find the latest events',
+  title: 'Nihon',
+  description: 'Discover the latest events in Japan',
   keywords: 'concerts, museums, exhibitions, japan, japanese',
 };
