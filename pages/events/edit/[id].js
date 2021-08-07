@@ -7,6 +7,7 @@ import { FaImage } from 'react-icons/fa';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Layout from '@/components/Layout';
+import Modal from '@/components/Modal';
 import { API_URL } from '@/config/index';
 import styles from '@/styles/Form.module.css';
 
@@ -23,6 +24,8 @@ export default function EditEventPage({ evt }) {
   const [imagePreview, setImagePreview] = useState(
     evt.image ? evt.image.formats.thumbnail.url : null
   );
+
+  const [showModal, setShowModal] = useState(false);
 
   const router = useRouter();
 
@@ -152,21 +155,24 @@ export default function EditEventPage({ evt }) {
       )}
 
       <div>
-        <button className='btn-secondary btn-icon'>
+        <button
+          onClick={() => setShowModal(true)}
+          className='btn-secondary btn-icon'
+        >
           <FaImage /> Set Image
         </button>
       </div>
+
+      <Modal show={showModal} onClose={() => setShowModal(false)}>
+        IMAGE UPLOAD
+      </Modal>
     </Layout>
   );
 }
 
 export async function getServerSideProps({ params: { id } }) {
-  const res = await fetch(`${API_URL}/events/${params}`);
+  const res = await fetch(`${API_URL}/events/${id}`);
   const evt = await res.json();
 
-  return {
-    props: {
-      evt,
-    },
-  };
+  return { props: { evt } };
 }
