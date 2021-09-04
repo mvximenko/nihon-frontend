@@ -26,7 +26,6 @@ export default function Header() {
             </Link>
           </li>
           {user ? (
-            // If logged in
             <>
               <li>
                 <Link href='/events/add'>
@@ -39,25 +38,19 @@ export default function Header() {
                 </Link>
               </li>
               <li>
-                <button
-                  onClick={() => logout()}
-                  className='btn-secondary btn-icon'
-                >
+                <button onClick={() => logout()} className='btn-icon'>
                   <FaSignOutAlt /> Logout
                 </button>
               </li>
             </>
           ) : (
-            // If logged out
-            <>
-              <li>
-                <Link href='/account/login'>
-                  <a className='btn-secondary btn-icon'>
-                    <FaSignInAlt /> Login
-                  </a>
-                </Link>
-              </li>
-            </>
+            <li>
+              <Link href='/account/login'>
+                <a className='btn-icon'>
+                  <FaSignInAlt /> Login
+                </a>
+              </Link>
+            </li>
           )}
         </ul>
       </nav>
