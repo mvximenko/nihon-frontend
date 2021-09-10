@@ -1,10 +1,10 @@
-import { ToastContainer, toast } from 'react-toastify';
+import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { FaPencilAlt, FaTimes } from 'react-icons/fa';
 import Link from 'next/link';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 import Layout from '@/components/Layout';
+import EventMap from '@/components/EventMap';
 import { API_URL } from '@/config/index';
 import styles from '@/styles/Event.module.css';
 
@@ -31,6 +31,9 @@ export default function EventPage({ evt }) {
         <p>{evt.description}</p>
         <h3>Venue: {evt.venue}</h3>
         <p>{evt.address}</p>
+
+        <EventMap evt={evt} />
+
         <Link href='/events'>
           <a className={styles.back}>{'<'} Go Back</a>
         </Link>
@@ -39,18 +42,13 @@ export default function EventPage({ evt }) {
   );
 }
 
-export async function getStaticPaths() {
-  const res = await fetch(`${API_URL}/events`);
-  const events = await res.json();
-
-  const paths = events.map((e) => ({ params: { slug: e.slug } }));
-
-  return { paths, fallback: true };
-}
-
-export async function getStaticProps({ params: { slug } }) {
+export async function getServerSideProps({ query: { slug } }) {
   const res = await fetch(`${API_URL}/events?slug=${slug}`);
   const events = await res.json();
 
-  return { props: { evt: events[0] }, revalidate: 1 };
+  return {
+    props: {
+      evt: events[0],
+    },
+  };
 }
